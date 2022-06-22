@@ -1,0 +1,5 @@
+#+SETUPFILE: ~/.slipbox/cfg/default.setup
+
+This repository provides SQLite versions of databases.  To use it you need to have [[https://nixos.org/][Nix]] installed.
+
+If you have a [[https://nixos.wiki/wiki/Flakes][Nix Flakes]]-enabled [[https://direnv.net/][direnv]] then you should be ready to, otherwise do =nix develop= to activate the flake.
