@@ -54,24 +54,25 @@
         devShells.default =
           with pkgs;
           pkgs.devshell.mkShell {
-            packages = [
-              curl
-              git
-              ripgrep
-              tree
-              unixtools.top
-              unixtools.watch
-              wget
-            ];
             commands = let
               cat = "Build SQLite databases";
             in [{name = "build-chinook";
                  help = "Build Chinook SQLite database";
-                 command = "nix build .#sqlite-chinook && install -m644 result/${chindb} . && rm -f result";
+                 command = ''
+                   nix build .#sqlite-chinook && \
+                   install -m644 result/${chindb} . && \
+                   rm -f result
+                   echo "Created Chinook database in $(basename ${chindb})"
+                 '';
                  category = cat;}
                 {name = "build-northwind";
                  help = "Build Norhtwind SQLite database";
-                 command = "nix build .#sqlite-northwind && install -m644 result/${northdb} . && rm -f result";
+                 command = ''
+                   nix build .#sqlite-northwind && \
+                   install -m644 result/${northdb} . && \
+                   rm -f result
+                   echo "Created Northwind database in $(basename ${northdb})"
+                 '';
                  category = cat;}];
           };
       });
