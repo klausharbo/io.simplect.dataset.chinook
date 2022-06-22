@@ -62,7 +62,7 @@
                    nix build .#sqlite-chinook && \
                    install -m644 result/${chindb} . && \
                    rm -f result
-                   echo "Created Chinook database in $(basename ${chindb})"
+                   echo "Created database: $(basename ${chindb})"
                  '';
                  category = cat;}
                 {name = "build-northwind";
@@ -71,7 +71,7 @@
                    nix build .#sqlite-northwind && \
                    install -m644 result/${northdb} . && \
                    rm -f result
-                   echo "Created Northwind database in $(basename ${northdb})"
+                   echo "Created database: $(basename ${northdb})"
                  '';
                  category = cat;}];
           };
