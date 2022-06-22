@@ -56,8 +56,12 @@
           pkgs.devshell.mkShell {
             commands = let
               cat = "Build SQLite databases";
-            in [{name = "build-chinook";
-                 help = "Build Chinook SQLite database";
+            in [{name = "build-all";
+                 help = "Build all available databasees";
+                 command = "build-chinook; build-northwind";
+                 category = cat;}
+                {name = "build-chinook";
+                 help = "Build Chinook database";
                  command = ''
                    nix build .#sqlite-chinook && \
                    install -m644 result/${chindb} . && \
@@ -66,7 +70,7 @@
                  '';
                  category = cat;}
                 {name = "build-northwind";
-                 help = "Build Norhtwind SQLite database";
+                 help = "Build Norhtwind database";
                  command = ''
                    nix build .#sqlite-northwind && \
                    install -m644 result/${northdb} . && \
