@@ -78,7 +78,7 @@
                    echo "Created database: $(basename ${northdb})"
                  '';
                  category = cat;}
-                {name = "rmdbs";
+                {name = "rm-all";
                  help = "Remove .db files in current directory";
                  command = "rm -f *.db";}];
           };
