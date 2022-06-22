@@ -7,10 +7,11 @@
   };
   outputs = { self, devshell, flake-utils, nixpkgs }:
     flake-utils.lib.eachDefaultSystem (system:
-      let version = "0.0.1";
-          datadir = "data/sqlite";
-          chindb  = "${datadir}/chinook.db";
-          northdb = "${datadir}/northwind.db";
+      let version  = "0.0.1";
+          datadir  = "data/sqlite";
+          chindb   = "${datadir}/chinook.db";
+          northdb  = "${datadir}/northwind.db";
+          sakiladb = "${datadir}/sakila.db";
       in
       rec {
         pkgs = import nixpkgs {
@@ -46,6 +47,26 @@
               $sqlite/bin/sqlite3 -init $src/Northwind.Sqlite3.create.sql $out/$northdb
             '';
           };
+          sqlite-sakila = pkgs.stdenv.mkDerivation {
+            inherit sakiladb sqlite system version;
+            pname = "chinook-sakila";
+            unzip = pkgs.unzip;
+            src = builtins.fetchurl {
+              url = "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/sakila-sample-database-ports/Sakila-sample-database-ports-v1.zip";
+              sha256 = "0y61122zgxb42v1wg0qbhdswf66lpwd93prkd3wzcp10siwrshvm";
+            };
+            buildInputs = [ pkgs.unzip];
+            unpackPhase = ''
+              mkdir -p $out/src
+              $unzip/bin/unzip $src -d $out/src
+            '';
+            installPhase = ''
+              data_dir=$out/data/sqlite
+              sub_dir=$out/src/Sakila/sqlite-sakila-db
+              mkdir -p $data_dir
+              echo ".read $sub_dir/sqlite-sakila-insert-data.sql" | $sqlite/bin/sqlite3 -init $sub_dir/sqlite-sakila-schema.sql $out/$sakiladb
+            '';
+          };
         };
         #--------------------------------------------------------------------------------
         # DevShell
@@ -58,7 +79,11 @@
               cat = "Build SQLite databases";
             in [{name = "build-all";
                  help = "Build all available databases";
-                 command = "build-chinook; build-northwind";
+                 command = ''
+                   build-chinook
+                   build-northwind
+                   build-sakila
+                 '';
                  category = cat;}
                 {name = "build-chinook";
                  help = "Build Chinook database";
@@ -76,6 +101,15 @@
                    install -m644 result/${northdb} . && \
                    rm -f result
                    echo "Created database: $(basename ${northdb})"
+                 '';
+                 category = cat;}
+                {name = "build-sakila";
+                 help = "Build Sakila database";
+                 command = ''
+                   nix build .#sqlite-sakila && \
+                   install -m644 result/${sakiladb} . && \
+                   rm -f result
+                   echo "Created database: $(basename ${sakiladb})"
                  '';
                  category = cat;}
                 {name = "rm-all";
