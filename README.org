@@ -3,3 +3,7 @@
 This repository provides SQLite versions of a few databases.  To use it you need to have [[https://nixos.org/][Nix]] installed.
 
 If you have a [[https://nixos.wiki/wiki/Flakes][Nix Flakes]]-enabled [[https://direnv.net/][direnv]] then you should be ready to go, otherwise do =nix develop= to activate the flake.
+
+- Chinook :: [[https://github.com/lerocha/chinook-database][github.com/lerocha/chinook-database]]
+- Northwind :: [[https://github.com/jpwhite3/northwind-SQLite3][github.com/jpwhite3/northwind-SQLite3]]
+- Sakila :: [[https://code.google.com/archive/p/sakila-sample-database-ports/][Project page]]
