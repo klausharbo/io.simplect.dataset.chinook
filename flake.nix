@@ -73,7 +73,10 @@
                    rm -f result
                    echo "Created database: $(basename ${northdb})"
                  '';
-                 category = cat;}];
+                 category = cat;}
+                {name = "rmdbs";
+                 help = "Remove .db files in current directory";
+                 command = "rm -f *.db";}];
           };
       });
 }
