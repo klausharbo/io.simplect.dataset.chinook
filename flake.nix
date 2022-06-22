@@ -17,13 +17,21 @@
         # Packages
         #--------------------------------------------------------------------------------
         packages =  rec {
-          sqlite3 = derivation {
-            name = "chinook-sqlite3";
-            src = ./.;
-            builder = pkgs.runtimeShell;
-            args = ["-c" "echo" "Guten Tag!"];
+          sqlite = pkgs.stdenv.mkDerivation {
+            inherit system;
+            sqlite = pkgs.sqlite;
+            name = "chinook-sqlite";
+            src = builtins.fetchGit {
+              url = "https://github.com/lerocha/chinook-database";
+              ref = "master";
+              rev = "e7e6d5f008e35d3f89d8b8a4f8d38e3bfa7e34bd";
+            };
+            installPhase = ''
+              mkdir $out
+              $sqlite/bin/sqlite3 -init $src/ChinookDatabase/DataSources/Chinook_Sqlite.sql $out/chinook-sqlite3.db
+            '';
           };
-          default = sqlite3;
+          default = sqlite;
         };
 
         #--------------------------------------------------------------------------------
