@@ -57,7 +57,7 @@
             commands = let
               cat = "Build SQLite databases";
             in [{name = "build-all";
-                 help = "Build all available databasees";
+                 help = "Build all available databases";
                  command = "build-chinook; build-northwind";
                  category = cat;}
                 {name = "build-chinook";
