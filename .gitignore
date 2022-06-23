@@ -4,5 +4,4 @@ result
 .envrc
 
 # Databases
-chinook.db
-northwind.db
+*.db

@@ -6,4 +6,4 @@ If you have a [[https://nixos.wiki/wiki/Flakes][Nix Flakes]]-enabled [[https://d
 
 - Chinook :: [[https://github.com/lerocha/chinook-database][github.com/lerocha/chinook-database]]
 - Northwind :: [[https://github.com/jpwhite3/northwind-SQLite3][github.com/jpwhite3/northwind-SQLite3]]
-- Sakila :: [[https://code.google.com/archive/p/sakila-sample-database-ports/][Project page]]
+- Sakila :: [[https://code.google.com/archive/p/sakila-sample-database-ports/][Google Code: sakila-sample-database-ports]] · [[https://github.com/bradleygrant/sakila-sqlite3][github.com/bradleygrant/sakila-sqlite3]]
